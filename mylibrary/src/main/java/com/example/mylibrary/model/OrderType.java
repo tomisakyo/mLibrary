@@ -9,10 +9,6 @@ import java.util.UUID;
 public class OrderType implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    public static int ORDER_TYPE_DINE_IN = 100;
-    public static int ORDER_TYPE_TAKE_AWAY = 200;
-    public static int ORDER_TYPE_GO_FOOD = 300;
-    public static int ORDER_TYPE_GRAB_FOOD = 400;
 
     private String orderTypeID;
     private String orderTypeName;

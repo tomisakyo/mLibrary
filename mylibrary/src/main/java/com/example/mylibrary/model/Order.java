@@ -24,23 +24,27 @@ public class Order implements Serializable {
     private long date;
     private String orderName;
     private List<OrderItem> orderItems;
-    private PaymentInvoice paymentInvoice;
-    private List<String> payments;
+    private String invoiceId;
+    private List<String> paymentIds;
     private String orderNote;
     private int orderStatus;
     private String orderTypeId;
 
-    public Order(String orderId, String sessionId, String orderName, long date, List<OrderItem> orderItems,
-                 List<String> payments, String orderNote, int orderStatus, boolean settled, String orderTypeId) {
+    private List<Ingredient> ingredientsSummary;
+
+    public Order(String orderId, String sessionId, String orderName, long date, List<OrderItem> orderItems, String invoiceId,
+                 List<String> paymentIds, String orderNote, int orderStatus, boolean settled, String orderTypeId, List<Ingredient>ingredientsSummary) {
         this.orderId = orderId;
         this.sessionId = sessionId;
         this.date = date;
         this.orderName = orderName;
         this.orderItems = orderItems;
-        this.payments = payments;
+        this.invoiceId =invoiceId;
+        this.paymentIds = paymentIds;
         this.orderNote = orderNote;
         this.orderStatus = orderStatus;
         this.orderTypeId = orderTypeId;
+        this.ingredientsSummary=ingredientsSummary;
     }
 
     public Order(OrderType orderType, String sessionId) {
@@ -49,10 +53,12 @@ public class Order implements Serializable {
         this.date = System.currentTimeMillis();
         this.orderName = "";
         this.orderItems = new ArrayList<>();
-        this.payments = new ArrayList<>();
+        this.invoiceId ="";
+        this.paymentIds = new ArrayList<>();
         this.orderNote = "";
         this.orderStatus = STATUS_NOT_CONFIRMED;
         this.orderTypeId = orderType.getOrderTypeID();
+        this.ingredientsSummary=new ArrayList<>();
     }
 
     public Order(OrderType orderType) {
@@ -61,10 +67,12 @@ public class Order implements Serializable {
         this.date = System.currentTimeMillis();
         this.orderName = "";
         this.orderItems = new ArrayList<>();
-        this.payments = new ArrayList<>();
+        this.invoiceId ="";
+        this.paymentIds = new ArrayList<>();
         this.orderNote = "";
         this.orderStatus = STATUS_NOT_CONFIRMED;
         this.orderTypeId = orderType.getOrderTypeID();
+        this.ingredientsSummary=new ArrayList<>();
     }
 
     public Order() {
@@ -73,10 +81,12 @@ public class Order implements Serializable {
         this.date = 0;
         this.orderName = "";
         this.orderItems = new ArrayList<>();
-        this.payments = new ArrayList<>();
+        this.invoiceId ="";
+        this.paymentIds = new ArrayList<>();
         this.orderNote = "";
         this.orderStatus = STATUS_NOT_CONFIRMED;
         this.orderTypeId = "";
+        this.ingredientsSummary=new ArrayList<>();
     }
 
 
@@ -112,20 +122,20 @@ public class Order implements Serializable {
         this.orderItems = orderItems;
     }
 
-    public List<String> getPayments() {
-        return payments;
+    public String getInvoiceId() {
+        return invoiceId;
     }
 
-    public void setPayments(List<String> payments) {
-        this.payments = payments;
+    public void setInvoiceId(String invoiceId) {
+        this.invoiceId = invoiceId;
     }
 
-    public PaymentInvoice getPaymentInvoice() {
-        return paymentInvoice;
+    public List<String> getPaymentIds() {
+        return paymentIds;
     }
 
-    public void setPaymentInvoice(PaymentInvoice paymentInvoice) {
-        this.paymentInvoice = paymentInvoice;
+    public void setPaymentIds(List<String> paymentIds) {
+        this.paymentIds = paymentIds;
     }
 
     public String getOrderNote() {
@@ -165,6 +175,13 @@ public class Order implements Serializable {
         this.orderTypeId = orderTypeId;
     }
 
+    public List<Ingredient> getIngredientsSummary() {
+        return ingredientsSummary;
+    }
+
+    public void setIngredientsSummary(List<Ingredient> ingredientsSummary) {
+        this.ingredientsSummary = ingredientsSummary;
+    }
 
     @Override
     public String toString() {

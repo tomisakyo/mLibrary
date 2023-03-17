@@ -13,42 +13,39 @@ import java.util.UUID;
 public class Product implements Serializable {
     private String productId;
     private String name;
-    private Variant var;
-    private double price;
     private int priority;
     private String productCategoryId;
     private String description;
-    private String attributes;
+    private String tags;
     private List<String> variants; // String == variantId
     private List<String> printers;
     private ArrayList<Ingredient> ingredients;
     private boolean isAvailable;
     private boolean isShowing;
     private Image image;
-    private ArrayList<Pricing> pricingList;
     private List<Pricing> priceList;
 
-    public Product(String productId, String name, Variant var, double price,
+    private String print;
+
+    public Product(String productId, String name,
                    int priority, String productCategoryId, String description,
-                   String attributes, List<String> variants, List<String> printers,
+                   String tags, List<String> variants, List<String> printers,
                    ArrayList<Ingredient> ingredients, boolean isAvailable, boolean isShowing,
-                   Image image, ArrayList<Pricing> pricingList, List<Pricing> priceList) {
+                   Image image, List<Pricing> priceList, String print) {
         this.productId = productId;
         this.name = name;
-        this.var = var;
-        this.price = price;
         this.priority = priority;
         this.productCategoryId = productCategoryId;
         this.description = description;
-        this.attributes = attributes;
+        this.tags = tags;
         this.variants = variants;
         this.printers = printers;
         this.ingredients = ingredients;
         this.isAvailable = isAvailable;
         this.isShowing = isShowing;
         this.image = image;
-        this.pricingList = pricingList;
         this.priceList = priceList;
+        this.print=print;
     }
 
     public Product() {
@@ -57,14 +54,14 @@ public class Product implements Serializable {
         this.priority = 0;
         this.productCategoryId = "";
         this.description = "";
-        this.attributes="";
+        this.tags="";
         this.variants = new ArrayList<>();
         this.printers=new ArrayList<>();
         this.ingredients = new ArrayList<>();
         this.image = new Image();
         this.isAvailable = false;
-        this.pricingList = new ArrayList<>();
         this.priceList = new ArrayList<>();
+        this.print="";
     }
 
     public String getIngredientStr() {
@@ -103,40 +100,10 @@ public class Product implements Serializable {
 //        return variantStr;
 //    }
 
-    public String getPricingStr() {
-        StringBuilder pricingStr = new StringBuilder();
-        for (Pricing pricing : getPricingList()) {
-//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_DINE_IN) {
-//                pricingStr.append("Dine In : Rp. ").append(pricing.getPrice()).append("\n");
-//            }
-//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_TAKE_AWAY) {
-//                pricingStr.append("Take Away : Rp. ").append(pricing.getPrice()).append("\n");
-//            }
-//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_GO_FOOD) {
-//                pricingStr.append("Go-Food : Rp. ").append(pricing.getPrice()).append("\n");
-//            }
-//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_GRAB_FOOD) {
-//                pricingStr.append("Grab-Food : Rp. ").append(pricing.getPrice());
-//            }
-        }
-        return pricingStr.toString();
-    }
 
     public String getProductId() {
         return productId;
     }
-
-    public Variant getVar() {
-        return var;
-    }
-
-    public void setVar(Variant var) {
-        this.var = var;
-    }
-
-    //    public ArrayList<Pricing> getProductId() {
-//        return productId;
-//    }
 
     public void setProductId(String productId) {
         this.productId = productId;
@@ -179,21 +146,14 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public String getAttributes() {
-        return attributes;
+    public String getTags() {
+        return tags;
     }
 
-    public void setAttributes(String attributes) {
-        this.attributes = attributes;
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
-    public List<String> getSelectedVariant() {
-        return variants;
-    }
-
-    public void setSelectedVariant(List<String> variants) {
-        this.variants = variants;
-    }
 
     public ArrayList<Ingredient> getIngredients() {
         return ingredients;
@@ -213,14 +173,6 @@ public class Product implements Serializable {
 
     public void setAvailable(boolean available) {
         isAvailable = available;
-    }
-
-    public ArrayList<Pricing> getPricingList() {
-        return pricingList;
-    }
-
-    public void setPricingList(ArrayList<Pricing> pricingList) {
-        this.pricingList = pricingList;
     }
 
     @Nullable
@@ -262,12 +214,12 @@ public class Product implements Serializable {
         this.variants = variants;
     }
 
-    public int getPrice() {
-        return (int) price;
+    public String getPrint() {
+        return print;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPrint(String print) {
+        this.print = print;
     }
 
     @Override

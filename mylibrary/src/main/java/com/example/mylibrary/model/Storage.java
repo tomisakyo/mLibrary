@@ -9,43 +9,34 @@ import java.util.UUID;
 public class Storage implements Serializable {
     private String storageId;
     private String companyId;
-    private String kitchenId;
     private String name;
     private String address;
     private String contact;
     private String lastTransactionId;
-    private int storageType;
     private ArrayList<StockQuantityHolder> stockQuantityHolders;
-    private ArrayList<String> recipesHolder; // String of Recipe Id
 
-    public static int TYPE_COMPANY = 100;
-    public static int TYPE_KITCHEN = 200;
-    public static int TYPE_OUTLET = 300;
+    private String tags;
 
-    public Storage(String storageId, String companyId, String kitchenId, String name, String address, String contact, String lastTransactionId, int storageType, ArrayList<StockQuantityHolder> stockQuantityHolders, ArrayList<String> recipesHolder) {
+    public Storage(String storageId, String companyId, String name, String address, String contact, String lastTransactionId, ArrayList<StockQuantityHolder> stockQuantityHolders, String tags) {
         this.storageId = storageId;
         this.companyId = companyId;
-        this.kitchenId = kitchenId;
         this.name = name;
         this.address = address;
         this.contact = contact;
         this.lastTransactionId = lastTransactionId;
-        this.storageType = storageType;
         this.stockQuantityHolders = stockQuantityHolders;
-        this.recipesHolder = recipesHolder;
+        this.tags=tags;
     }
 
     public Storage() {
         this.storageId = UUID.randomUUID().toString();
         this.companyId = "";
-        this.kitchenId = "";
         this.name = "";
         this.address = "";
         this.contact = "";
         this.lastTransactionId = "";
-        this.storageType = -1;
         this.stockQuantityHolders = new ArrayList<>();
-        this.recipesHolder = new ArrayList<>();
+        this.tags="";
     }
 
     public String getStorageId() {
@@ -62,14 +53,6 @@ public class Storage implements Serializable {
 
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
-    }
-
-    public String getKitchenId() {
-        return kitchenId;
-    }
-
-    public void setKitchenId(String kitchenId) {
-        this.kitchenId = kitchenId;
     }
 
     public String getName() {
@@ -104,28 +87,20 @@ public class Storage implements Serializable {
         this.lastTransactionId = lastTransactionId;
     }
 
-    public ArrayList<String> getRecipesHolder() {
-        return recipesHolder;
-    }
-
-    public void setRecipesHolder(ArrayList<String> recipesHolder) {
-        this.recipesHolder = recipesHolder;
-    }
-
-    public int getStorageType() {
-        return storageType;
-    }
-
-    public void setStorageType(int storageType) {
-        this.storageType = storageType;
-    }
-
     public ArrayList<StockQuantityHolder> getStockQuantityHolders() {
         return stockQuantityHolders;
     }
 
     public void setStockQuantityHolders(ArrayList<StockQuantityHolder> stockQuantityHolders) {
         this.stockQuantityHolders = stockQuantityHolders;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     @Override
@@ -150,17 +125,6 @@ public class Storage implements Serializable {
             pos++;
             if (stockQuantityHolder.getStockId().equals(stock.getStockId())) {
                 stockQuantityHolders.remove(pos);
-                break;
-            }
-        }
-    }
-
-    public void removeRecipeInHolder(Recipe recipe) {
-        int pos = -1;
-        for (String recipeId : recipesHolder) {
-            pos++;
-            if (recipeId.equals(recipe.getRecipeId())) {
-                recipesHolder.remove(pos);
                 break;
             }
         }

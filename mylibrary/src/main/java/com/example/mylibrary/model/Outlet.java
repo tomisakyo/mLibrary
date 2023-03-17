@@ -12,107 +12,37 @@ public class Outlet implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String outletId;
-    private String outletCategoryId;
     private String lastSessionId;
     private String name;
     private String contact;
     private String storageId;
     private String address;
     private String companyId;
-    private String companyName;
-    private String templateId;
     private long createdAt;
-    private boolean isSettled;
+
     private ArrayList<String> wallets;
 
-    private String walletId, walletQrisId, walletGopayId, walletOvoId;
-
-
-    public Outlet(String outletId, String outletCategoryId, String lastSessionId, String name, String contact, String storageId, String address, String companyId, String companyName, String templateId, long createdAt, boolean isSettled) {
+    public Outlet(String outletId, String lastSessionId, String name, String contact, String storageId, String address, String companyId, long createdAt, ArrayList<String> wallets) {
         this.outletId = outletId;
-        this.outletCategoryId = outletCategoryId;
         this.lastSessionId = lastSessionId;
         this.name = name;
         this.contact = contact;
         this.storageId = storageId;
         this.address = address;
         this.companyId = companyId;
-        this.companyName = companyName;
-        this.templateId = templateId;
         this.createdAt = createdAt;
-        this.isSettled = isSettled;
-    }
-
-    public Outlet(String outletId, String outletCategoryId, String lastSessionId, String name, String contact, String storageId, String address, String companyId, String companyName, String templateId, long createdAt, boolean isSettled, ArrayList<String> wallets, String walletId, String walletQrisId, String walletGopayId, String walletOvoId) {
-        this.outletId = outletId;
-        this.outletCategoryId = outletCategoryId;
-        this.lastSessionId = lastSessionId;
-        this.name = name;
-        this.contact = contact;
-        this.storageId = storageId;
-        this.address = address;
-        this.companyId = companyId;
-        this.companyName = companyName;
-        this.templateId = templateId;
-        this.createdAt = createdAt;
-        this.isSettled = isSettled;
         this.wallets = wallets;
-        this.walletId = walletId;
-        this.walletQrisId = walletQrisId;
-        this.walletGopayId = walletGopayId;
-        this.walletOvoId = walletOvoId;
     }
-
     public Outlet() {
         this.outletId = UUID.randomUUID().toString();
-        this.outletCategoryId = "";
         this.lastSessionId = "";
         this.name = "";
         this.contact = "";
         this.storageId = "";
         this.address = "";
         this.companyId = "";
-        this.companyName = "";
-        this.templateId = "";
-        this.createdAt = Calendar.getInstance().getTimeInMillis();
-        this.isSettled = false;
+        this.createdAt = 0;
         this.wallets = new ArrayList<>();
-    }
-
-    public void setWalletId(String walletId) {
-        this.walletId = walletId;
-    }
-
-    public void setWalletQrisId(String walletQrisId) {
-        this.walletQrisId = walletQrisId;
-    }
-
-    public void setWalletGopayId(String walletGopayId) {
-        this.walletGopayId = walletGopayId;
-    }
-
-    public void setWalletOvoId(String walletOvoId) {
-        this.walletOvoId = walletOvoId;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getWalletId() {
-        return walletId;
-    }
-
-    public String getWalletQrisId() {
-        return walletQrisId;
-    }
-
-    public String getWalletGopayId() {
-        return walletGopayId;
-    }
-
-    public String getWalletOvoId() {
-        return walletOvoId;
     }
 
     public String getOutletId() {
@@ -121,14 +51,6 @@ public class Outlet implements Serializable {
 
     public void setOutletId(String outletId) {
         this.outletId = outletId;
-    }
-
-    public String getOutletCategoryId() {
-        return outletCategoryId;
-    }
-
-    public void setOutletCategoryId(String outletCategoryId) {
-        this.outletCategoryId = outletCategoryId;
     }
 
     public String getLastSessionId() {
@@ -179,36 +101,12 @@ public class Outlet implements Serializable {
         this.companyId = companyId;
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getTemplateId() {
-        return templateId;
-    }
-
-    public void setTemplateId(String templateId) {
-        this.templateId = templateId;
-    }
-
     public long getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public boolean isSettled() {
-        return isSettled;
-    }
-
-    public void setSettled(boolean settled) {
-        isSettled = settled;
     }
 
     public ArrayList<String> getWallets() {

@@ -8,82 +8,63 @@ import java.util.UUID;
 public class Stock implements Serializable {
     private String stockId;
     private int minimumStockLevel;
-    private String minimumStockUnit1;
-    private String minimumStockUnit2;
-    private String minimumStockUnit3;
     private String name;
     private String categoryId;
     private int priority;
-    private int quantity;
     private String unit1;
     private int unit1ValueOverUnit2;
     private String unit2;
     private int unit2ValueOverUnit3;
     private String unit3;
-    private boolean isLocked;
-    private boolean isAutoWasted;
     private boolean isEnabled;
 
-    public Stock(String stockId, int minimumStockLevel, String minimumStockUnit1, String minimumStockUnit2, String minimumStockUnit3, String name,
-                 String categoryId, int priority, int quantity, String unit1, int unit1ValueOverUnit2, String unit2,
-                 int unit2ValueOverUnit3, String unit3, boolean isLocked, boolean isAutoWasted, boolean isEnabled) {
+    private String tags;
+
+    public Stock(String stockId, int minimumStockLevel, String name,
+                 String categoryId, int priority, String unit1, int unit1ValueOverUnit2, String unit2,
+                 int unit2ValueOverUnit3, String unit3, boolean isEnabled, String tags) {
         this.stockId = stockId;
         this.minimumStockLevel = minimumStockLevel;
-        this.minimumStockUnit1 = minimumStockUnit1;
-        this.minimumStockUnit2 = minimumStockUnit2;
-        this.minimumStockUnit3 = minimumStockUnit3;
         this.name = name;
         this.categoryId = categoryId;
         this.priority = priority;
-        this.quantity = quantity;
         this.unit1 = unit1;
         this.unit1ValueOverUnit2 = unit1ValueOverUnit2;
         this.unit2 = unit2;
         this.unit2ValueOverUnit3 = unit2ValueOverUnit3;
         this.unit3 = unit3;
-        this.isLocked = isLocked;
-        this.isAutoWasted = isAutoWasted;
         this.isEnabled = isEnabled;
+        this.tags=tags;
     }
 
     public Stock(String name) {
         this.stockId = UUID.randomUUID().toString();
         this.minimumStockLevel = -1;
-        this.minimumStockUnit1 = "";
-        this.minimumStockUnit2 = "";
-        this.minimumStockUnit3 = "";
         this.name = name;
         this.categoryId = "";
         this.priority = 0;
-        this.quantity = 0;
-        this.isLocked = true;
-        this.isAutoWasted = false;
         this.isEnabled = true;
         this.unit1 = "";
         this.unit2 = "";
         this.unit3 = "";
         this.unit1ValueOverUnit2 = 0;
         this.unit2ValueOverUnit3 = 0;
+        this.tags ="";
     }
 
     public Stock() {
         this.stockId = UUID.randomUUID().toString();
         this.minimumStockLevel = -1;
-        this.minimumStockUnit1 = "";
-        this.minimumStockUnit2 = "";
-        this.minimumStockUnit3 = "";
         this.name = "";
         this.categoryId = "";
         this.priority = 0;
-        this.quantity = 0;
-        this.isLocked = true;
-        this.isAutoWasted = false;
         this.isEnabled = true;
         this.unit1 = "";
         this.unit2 = "";
         this.unit3 = "";
         this.unit1ValueOverUnit2 = 0;
         this.unit2ValueOverUnit3 = 0;
+        this.tags ="";
     }
 
     public Boolean isHasUnit2(){
@@ -118,30 +99,6 @@ public class Stock implements Serializable {
         this.minimumStockLevel = minimumStockLevel;
     }
 
-    public String getMinimumStockUnit1() {
-        return minimumStockUnit1;
-    }
-
-    public void setMinimumStockUnit1(String minimumStockUnit1) {
-        this.minimumStockUnit1 = minimumStockUnit1;
-    }
-
-    public String getMinimumStockUnit2() {
-        return minimumStockUnit2;
-    }
-
-    public void setMinimumStockUnit2(String minimumStockUnit2) {
-        this.minimumStockUnit2 = minimumStockUnit2;
-    }
-
-    public String getMinimumStockUnit3() {
-        return minimumStockUnit3;
-    }
-
-    public void setMinimumStockUnit3(String minimumStockUnit3) {
-        this.minimumStockUnit3 = minimumStockUnit3;
-    }
-
     public String getName() {
         return name;
     }
@@ -164,30 +121,6 @@ public class Stock implements Serializable {
 
     public void setPriority(int priority) {
         this.priority = priority;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public boolean isLocked() {
-        return isLocked;
-    }
-
-    public void setLocked(boolean locked) {
-        isLocked = locked;
-    }
-
-    public boolean isAutoWasted() {
-        return isAutoWasted;
-    }
-
-    public void setAutoWasted(boolean autoWasted) {
-        isAutoWasted = autoWasted;
     }
 
     public String getUnit1() {
@@ -238,7 +171,15 @@ public class Stock implements Serializable {
         isEnabled = enabled;
     }
 
-//    @Override
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    //    @Override
 //    public String toString() {
 //        return getStockId() + ":" + getName();
 //    }

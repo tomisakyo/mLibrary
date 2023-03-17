@@ -16,29 +16,25 @@ public class OrderItem implements Serializable {
 
     private String productId;
     private String productName;
-    private String productCategoryName;
     private double productPrice;
     private int quantity;
     private String note;
     private double discount;
     private double eachItemPrice;
-    private String attributes;
     private List<OrderItemVariant> variants;
     private int status;
 
 //    private Map<String, VariantItem> selectedVariants; // variantTypeId, VariantItem
 
-    public OrderItem(String productId, String productName, String productCategoryName, double productPrice,
-                     int quantity, String note, double discount, double eachItemPrice, String attributes, List<OrderItemVariant> variants) {
+    public OrderItem(String productId, String productName, double productPrice,
+                     int quantity, String note, double discount, double eachItemPrice, List<OrderItemVariant> variants) {
         this.productId = productId;
         this.productName = productName;
-        this.productCategoryName = productCategoryName;
         this.productPrice = productPrice;
         this.quantity = quantity;
         this.note = note;
         this.discount = discount;
         this.eachItemPrice = eachItemPrice;
-        this.attributes = attributes;
         this.variants = variants;
         this.status = STATUS_CLEAR;
     }
@@ -67,13 +63,11 @@ public class OrderItem implements Serializable {
     public OrderItem() {
         this.productId = "";
         this.productName = "";
-        this.productCategoryName = "";
         this.productPrice = 0.0;
         this.quantity = 0;
         this.note = "";
         this.discount = 0;
         this.eachItemPrice = 0;
-        this.attributes="";
         this.variants = new ArrayList<>();
         this.status = STATUS_CLEAR;
     }
@@ -92,14 +86,6 @@ public class OrderItem implements Serializable {
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public String getProductCategoryName() {
-        return productCategoryName;
-    }
-
-    public void setProductCategoryName(String productCategoryName) {
-        this.productCategoryName = productCategoryName;
     }
 
     public int getQuantity() {
@@ -210,13 +196,5 @@ public class OrderItem implements Serializable {
             }
         }
         return selectedVarStr;
-    }
-
-    public String getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(String attributes) {
-        this.attributes = attributes;
     }
 }

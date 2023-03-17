@@ -11,8 +11,6 @@ public class Company implements Serializable {
     private String ownerName;
     private String email;
 
-    private String walletId;
-
     private boolean isEnabled;
     private long createdAt;
 
@@ -20,13 +18,17 @@ public class Company implements Serializable {
     private ArrayList<String> wallets;
     private List<Attendance> attendanceList;
 
-
-    public String getWalletId() {
-        return walletId;
-    }
-
-    public void setWalletId(String walletId) {
-        this.walletId = walletId;
+    public Company(String companyId, String name, String contact, String ownerName, String email, boolean isEnabled, long createdAt, ArrayList<String> storageList, ArrayList<String> wallets, List<Attendance> attendanceList) {
+        this.companyId = companyId;
+        this.name = name;
+        this.contact = contact;
+        this.ownerName = ownerName;
+        this.email = email;
+        this.isEnabled = isEnabled;
+        this.createdAt = createdAt;
+        this.storageList = storageList;
+        this.wallets = wallets;
+        this.attendanceList = attendanceList;
     }
 
     public Company() {

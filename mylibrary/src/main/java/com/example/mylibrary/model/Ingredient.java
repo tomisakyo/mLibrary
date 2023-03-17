@@ -6,18 +6,15 @@ public class Ingredient implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String stockId;
-    private String stockName;
     private int quantity;
 
-    public Ingredient(String stockId, String stockName, int quantity) {
+    public Ingredient(String stockId, int quantity) {
         this.stockId = stockId;
-        this.stockName = stockName;
         this.quantity = quantity;
     }
 
     public Ingredient() {
         this.stockId = "";
-        this.stockName = "";
         this.quantity = 0;
     }
 
@@ -27,14 +24,6 @@ public class Ingredient implements Serializable {
 
     public void setStockId(String stockId) {
         this.stockId = stockId;
-    }
-
-    public String getStockName() {
-        return stockName;
-    }
-
-    public void setStockName(String stockName) {
-        this.stockName = stockName;
     }
 
     public int getQuantity() {

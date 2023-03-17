@@ -4,14 +4,12 @@ import java.io.Serializable;
 
 public class StockTransactionItem implements Serializable {
     private String stockId;
-    private String stockName;
     private int quantityActual;
     private int quantitySystem;
     private String note;
 
-    public StockTransactionItem(String stockId, String stockName, int quantityActual, int quantitySystem, String note) {
+    public StockTransactionItem(String stockId, int quantityActual, int quantitySystem, String note) {
         this.stockId = stockId;
-        this.stockName = stockName;
         this.quantityActual = quantityActual;
         this.quantitySystem = quantitySystem;
         this.note = note;
@@ -19,7 +17,6 @@ public class StockTransactionItem implements Serializable {
 
     public StockTransactionItem() {
         this.stockId = "";
-        this.stockName = "";
         this.quantityActual = 0;
         this.quantitySystem = 0;
         this.note = "";
@@ -27,7 +24,6 @@ public class StockTransactionItem implements Serializable {
 
     public StockTransactionItem(Ingredient ingredient, int portion) {
         this.stockId = ingredient.getStockId();
-        this.stockName = ingredient.getStockName();
         this.quantityActual = 0;
         this.quantitySystem = ingredient.getQuantity()*portion;
         this.note = "";
@@ -39,14 +35,6 @@ public class StockTransactionItem implements Serializable {
 
     public void setStockId(String stockId) {
         this.stockId = stockId;
-    }
-
-    public String getStockName() {
-        return stockName;
-    }
-
-    public void setStockName(String stockName) {
-        this.stockName = stockName;
     }
 
     public int getQuantityActual() {

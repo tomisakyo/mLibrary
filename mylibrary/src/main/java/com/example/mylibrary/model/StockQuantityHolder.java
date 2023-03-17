@@ -6,25 +6,19 @@ import java.io.Serializable;
 
 public class StockQuantityHolder implements Serializable {
     private String stockId;
-    private String stockName;
     private int quantity;
     private int minimumStockLevel;
-    private boolean isLocked;
 
-    public StockQuantityHolder(String stockId, String stockName, int quantity, int minimumStockLevel, boolean isLocked) {
+    public StockQuantityHolder(String stockId, int quantity, int minimumStockLevel) {
         this.stockId = stockId;
-        this.stockName = stockName;
         this.quantity = quantity;
         this.minimumStockLevel = minimumStockLevel;
-        this.isLocked = isLocked;
     }
 
     public StockQuantityHolder() {
         this.stockId = "";
-        this.stockName = "";
         this.quantity = -1;
         this.minimumStockLevel = -1;
-        this.isLocked = false;
     }
 
     public String getStockId() {
@@ -33,14 +27,6 @@ public class StockQuantityHolder implements Serializable {
 
     public void setStockId(String stockId) {
         this.stockId = stockId;
-    }
-
-    public String getStockName() {
-        return stockName;
-    }
-
-    public void setStockName(String stockName) {
-        this.stockName = stockName;
     }
 
     public int getQuantity() {
@@ -57,14 +43,6 @@ public class StockQuantityHolder implements Serializable {
 
     public void setMinimumStockLevel(int minimumStockLevel) {
         this.minimumStockLevel = minimumStockLevel;
-    }
-
-    public boolean isLocked() {
-        return isLocked;
-    }
-
-    public void setLocked(boolean locked) {
-        isLocked = locked;
     }
 
     @Override

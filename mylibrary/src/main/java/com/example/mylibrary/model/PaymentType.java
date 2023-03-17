@@ -17,11 +17,6 @@ public class PaymentType implements Serializable {
     private boolean isCash;
     private String walletId; // nullable (choose from dialog)
 
-    public static int PAYMENT_TYPE_CASH = 91;
-    public static int PAYMENT_TYPE_QRIS = 92;
-    public static int PAYMENT_TYPE_GOPAY = 100;
-    public static int PAYMENT_TYPE_OVO = 200; // grab
-
     public PaymentType(String paymentName, double fee, boolean isFixFee, boolean isCharged, boolean isCash, String walletId) {
         this.paymentTypeId = UUID.randomUUID().toString();
         this.paymentName = paymentName;

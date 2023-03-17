@@ -13,24 +13,22 @@ public class Recipe implements Serializable {
     private String recipeCategoryId;
     private ArrayList<Ingredient> ingredientList;
     private String stockResultId;
-    private double estimatedResultFrom;
-    private double estimatedResultTo;
     private boolean isEnabled;
     private boolean isShowDetail;
+    private String note;
     //private boolean isShowContributorList; //TODO : Later = User id + poin, used in process
 
     //    private Contributor c
     public Recipe(String recipeId, String name, String recipeCategoryId, ArrayList<Ingredient> ingredientList,
-                  String stockResultId, double estimatedResultFrom, double estimatedResultTo, boolean isEnabled, boolean isShowDetail) {
+                  String stockResultId, boolean isEnabled, boolean isShowDetail, String note) {
         this.recipeId = recipeId;
         this.name = name;
         this.recipeCategoryId = recipeCategoryId;
         this.ingredientList = ingredientList;
         this.stockResultId = stockResultId;
-        this.estimatedResultFrom = estimatedResultFrom;
-        this.estimatedResultTo = estimatedResultTo;
         this.isEnabled = isEnabled;
         this.isShowDetail = isShowDetail;
+        this.note=note;
     }
 
     public Recipe(String name) {
@@ -39,10 +37,9 @@ public class Recipe implements Serializable {
         this.recipeCategoryId = "";
         this.ingredientList = new ArrayList<>();
         this.stockResultId = "";
-        this.estimatedResultFrom = 0.0;
-        this.estimatedResultTo = 0.0;
         this.isEnabled = false;
         this.isShowDetail = false;
+        this.note="";
     }
 
     public Recipe() {
@@ -51,10 +48,9 @@ public class Recipe implements Serializable {
         this.recipeCategoryId = "";
         this.ingredientList = new ArrayList<>();
         this.stockResultId = "";
-        this.estimatedResultFrom = 0.0;
-        this.estimatedResultTo = 0.0;
         this.isEnabled = false;
         this.isShowDetail = false;
+        this.note="";
     }
 
     public String getRecipeId() {
@@ -105,21 +101,6 @@ public class Recipe implements Serializable {
         isShowDetail = showDetail;
     }
 
-    public double getEstimatedResultFrom() {
-        return estimatedResultFrom;
-    }
-
-    public void setEstimatedResultFrom(double estimatedResultFrom) {
-        this.estimatedResultFrom = estimatedResultFrom;
-    }
-
-    public double getEstimatedResultTo() {
-        return estimatedResultTo;
-    }
-
-    public void setEstimatedResultTo(double estimatedResultTo) {
-        this.estimatedResultTo = estimatedResultTo;
-    }
 
     public boolean isEnabled() {
         return isEnabled;

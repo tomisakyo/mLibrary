@@ -21,7 +21,6 @@ import static com.example.mylibrary.firestore.FirestorePath.getWalletTransaction
 import static com.example.mylibrary.firestore.FirestorePath.getWalletTransactionPath;
 
 import com.example.mylibrary.model.Company;
-import com.example.mylibrary.model.Kitchen;
 import com.example.mylibrary.model.Outlet;
 import com.example.mylibrary.model.Product;
 import com.example.mylibrary.model.ProductCategory;

@@ -110,24 +110,6 @@ public class Recipe implements Serializable {
         isEnabled = enabled;
     }
 
-
-    public String getIngredientStr() {
-        String ingredientStr = "";
-        boolean first = true;
-
-        if (ingredientList != null) {
-            for (Ingredient ingredient : ingredientList) {
-                if (!first) {
-                    ingredientStr += "\n";
-                }
-                ingredientStr += "*" + ingredient.getStockName() + "(" + ingredient.getQuantity() + ")";
-                first = false;
-            }
-        }
-
-        return ingredientStr;
-    }
-
     @Override
     public boolean equals(@Nullable Object obj) {
         if(obj instanceof Recipe) {

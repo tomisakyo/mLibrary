@@ -111,23 +111,5 @@ public class Storage implements Serializable {
             return getName();
         }
     }
-
-    public boolean isHaveHasStock(Stock stock) {
-        for (StockQuantityHolder stockQuantityHolder : stockQuantityHolders) {
-            if (stockQuantityHolder.getStockId().equals(stock.getStockId())) return true;
-        }
-        return false;
-    }
-
-    public void removeStockInHolder(@NonNull Stock stock) {
-        int pos = -1;
-        for (StockQuantityHolder stockQuantityHolder : stockQuantityHolders) {
-            pos++;
-            if (stockQuantityHolder.getStockId().equals(stock.getStockId())) {
-                stockQuantityHolders.remove(pos);
-                break;
-            }
-        }
-    }
 }
 

@@ -69,26 +69,26 @@ public class FunctionManager {
     }
 
     //Receipt Printer Functions
-//    public static PrinterHolder convertPrinterFromString(String objStr) {
-//        Gson gson = new GsonBuilder().create();
-//        PrinterHolder obj = gson.fromJson(objStr, new TypeToken<PrinterHolder>() {
-//        }.getType());
-//        return obj;
-//    }
+    public static Printer convertPrinterFromString(String objStr) {
+        Gson gson = new GsonBuilder().create();
+        Printer obj = gson.fromJson(objStr, new TypeToken<Printer>() {
+        }.getType());
+        return obj;
+    }
 
-//    public static String convertPrinterToString(PrinterHolder obj) {
-//        Gson gson = new GsonBuilder().create();
-//        String objStr = gson.toJson(obj);
-//        return objStr;
-//    }
-//
-//    //Ordering Printer Functions
-//    public static ArrayList<PrinterHolder> convertPrintersFromString(String objStr) {
-//        Gson gson = new GsonBuilder().create();
-//        ArrayList<PrinterHolder> obj = gson.fromJson(objStr, new TypeToken<ArrayList<PrinterHolder>>() {
-//        }.getType());
-//        return obj;
-//    }
+    public static String convertPrinterToString(Printer obj) {
+        Gson gson = new GsonBuilder().create();
+        String objStr = gson.toJson(obj);
+        return objStr;
+    }
+
+    //Ordering Printer Functions
+    public static ArrayList<Printer> convertPrintersFromString(String objStr) {
+        Gson gson = new GsonBuilder().create();
+        ArrayList<Printer> obj = gson.fromJson(objStr, new TypeToken<ArrayList<Printer>>() {
+        }.getType());
+        return obj;
+    }
 
     public static String getPrinterNameById(List<Printer> list, String id) {
         for(Printer printer : list){

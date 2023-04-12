@@ -9,16 +9,20 @@ public class StockQuantityHolder implements Serializable {
     private int quantity;
     private int minimumStockLevel;
 
+    private boolean hasBeenAlerted;
+
     public StockQuantityHolder(String stockId, int quantity, int minimumStockLevel) {
         this.stockId = stockId;
         this.quantity = quantity;
         this.minimumStockLevel = minimumStockLevel;
+        this.hasBeenAlerted = false;
     }
 
     public StockQuantityHolder() {
         this.stockId = "";
         this.quantity = -1;
         this.minimumStockLevel = -1;
+        this.hasBeenAlerted = false;
     }
 
     public String getStockId() {
@@ -43,6 +47,14 @@ public class StockQuantityHolder implements Serializable {
 
     public void setMinimumStockLevel(int minimumStockLevel) {
         this.minimumStockLevel = minimumStockLevel;
+    }
+
+    public boolean isHasBeenAlerted() {
+        return hasBeenAlerted;
+    }
+
+    public void setHasBeenAlerted(boolean hasBeenAlerted) {
+        this.hasBeenAlerted = hasBeenAlerted;
     }
 
     @Override

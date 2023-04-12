@@ -188,16 +188,6 @@ public class Order implements Serializable {
         return "";
     }
 
-    public int getTotalProductQuantity() {
-        int result = 0;
-        if (orderItems != null) {
-            for (OrderItem orderItem : orderItems) {
-                result += orderItem.getQuantity();
-            }
-        }
-        return result;
-    }
-
 //    public String getOrderItemStrVertical() {
 //        StringBuilder result = new StringBuilder("Order Items (" + orderItems.size() + ") : \n");
 //        if (!this.orderItems.isEmpty() && orderItems != null) {

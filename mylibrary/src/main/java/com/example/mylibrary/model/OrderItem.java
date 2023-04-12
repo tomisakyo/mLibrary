@@ -174,27 +174,4 @@ public class OrderItem implements Serializable {
 //        }
 //        return result.toString();
 //    }
-    public double getSubTotal(){
-        return getEachItemPrice()*getQuantity();
-    }
-
-    public String getSelectedVariantStr(){
-        String selectedVarStr="";
-        boolean isFirst=true;
-        if(getVariants().size()>0){
-            for(int i = 0; i< getVariants().size(); i++){
-                OrderItemVariant var = getVariants().get(i);
-                String selectedVarPrintName = var.getVariantItemName();
-
-                if(!selectedVarPrintName.equalsIgnoreCase("")){
-                    if(!isFirst){
-                        selectedVarStr +=", ";
-                    }
-                    selectedVarStr += selectedVarPrintName;
-                    isFirst =false;
-                }
-            }
-        }
-        return selectedVarStr;
-    }
 }

@@ -139,14 +139,6 @@ public class FirestoreManager {
         return instance.document(getOutletPathById(outlet.getOutletId())).set(outlet);
     }
 
-    public static Task<Void> saveKitchen(Kitchen kitchen, FirebaseFirestore instance) {
-        return instance
-                .document(
-                        getKitchenPathById(kitchen.getKitchenId())
-                )
-                .set(kitchen);
-    }
-
     public static Task<QuerySnapshot> getKitchens(String companyId, FirebaseFirestore instance) {
         return instance.collection(getKitchensPath()).whereEqualTo("companyId", companyId).get();
     }
@@ -212,10 +204,9 @@ public class FirestoreManager {
         }
 
         StockQuantityHolder stockQuantityHolder = new StockQuantityHolder();
-        stockQuantityHolder.setStockName(stock.getName());
         stockQuantityHolder.setMinimumStockLevel(stock.getMinimumStockLevel());
         stockQuantityHolder.setStockId(stock.getStockId());
-        stockQuantityHolder.setQuantity(stock.getQuantity());
+//        stockQuantityHolder.setQuantity(stock.getQuantity());
 
         if (pos == -1) {
             storage.getStockQuantityHolders().add(stockQuantityHolder);

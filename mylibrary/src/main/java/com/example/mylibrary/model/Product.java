@@ -64,23 +64,6 @@ public class Product implements Serializable {
         this.print="";
     }
 
-    public String getIngredientStr() {
-        String ingredientStr = "";
-        boolean first = true;
-
-        if (ingredients != null) {
-            for (Ingredient ingredient : ingredients) {
-                if (!first) {
-                    ingredientStr += "\n";
-                }
-                ingredientStr += "*" + ingredient.getStockName() + "(" + ingredient.getQuantity() + ")";
-                first = false;
-            }
-        }
-
-        return ingredientStr;
-    }
-
 //    public String getVariantStr() {
 //        String variantStr = "";
 //        boolean first = true;

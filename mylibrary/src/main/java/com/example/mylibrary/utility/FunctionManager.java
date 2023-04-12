@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
+
 import com.example.mylibrary.model.Ingredient;
 import com.example.mylibrary.model.Order;
 import com.example.mylibrary.model.OrderItem;
@@ -26,6 +28,7 @@ import com.example.mylibrary.model.User;
 import com.example.mylibrary.model.UserCompany;
 import com.example.mylibrary.model.Variant;
 import com.example.mylibrary.model.VariantCategory;
+import com.example.mylibrary.model.VariantItem;
 import com.example.mylibrary.model.Wallet;
 import com.example.mylibrary.model.WalletTransaction;
 import com.google.gson.Gson;
@@ -66,23 +69,23 @@ public class FunctionManager {
     }
 
     //Receipt Printer Functions
-    public static PrinterHolder convertPrinterFromString(String objStr) {
+    public static Printer convertPrinterFromString(String objStr) {
         Gson gson = new GsonBuilder().create();
-        PrinterHolder obj = gson.fromJson(objStr, new TypeToken<PrinterHolder>() {
+        Printer obj = gson.fromJson(objStr, new TypeToken<Printer>() {
         }.getType());
         return obj;
     }
 
-    public static String convertPrinterToString(PrinterHolder obj) {
+    public static String convertPrinterToString(Printer obj) {
         Gson gson = new GsonBuilder().create();
         String objStr = gson.toJson(obj);
         return objStr;
     }
 
     //Ordering Printer Functions
-    public static ArrayList<PrinterHolder> convertPrintersFromString(String objStr) {
+    public static ArrayList<Printer> convertPrintersFromString(String objStr) {
         Gson gson = new GsonBuilder().create();
-        ArrayList<PrinterHolder> obj = gson.fromJson(objStr, new TypeToken<ArrayList<PrinterHolder>>() {
+        ArrayList<Printer> obj = gson.fromJson(objStr, new TypeToken<ArrayList<Printer>>() {
         }.getType());
         return obj;
     }
@@ -95,11 +98,11 @@ public class FunctionManager {
         return null;
     }
 
-    public static String convertPrintersToString(ArrayList<PrinterHolder> obj) {
-        Gson gson = new GsonBuilder().create();
-        String objStr = gson.toJson(obj);
-        return objStr;
-    }
+//    public static String convertPrintersToString(ArrayList<PrinterHolder> obj) {
+//        Gson gson = new GsonBuilder().create();
+//        String objStr = gson.toJson(obj);
+//        return objStr;
+//    }
 
     public static Printer getPrinterObjectById(List<Printer> printers, String printerId){
         for(int i =0;i<printers.size();i++){
@@ -112,9 +115,8 @@ public class FunctionManager {
 
     public static StockQuantityHolder convertQuantityHolderFromStock(Stock stockQuantityHolder) {
         StockQuantityHolder result = new StockQuantityHolder();
-        result.setQuantity(stockQuantityHolder.getQuantity());
+//        result.setQuantity(stockQuantityHolder.get());
         result.setMinimumStockLevel(stockQuantityHolder.getMinimumStockLevel());
-        result.setStockName(stockQuantityHolder.getName());
         result.setStockId(stockQuantityHolder.getStockId());
         return result;
     }
@@ -125,7 +127,7 @@ public class FunctionManager {
         for (Ingredient ingredient : recipe.getIngredientList()) {
             int indexStock = FunctionManager.getStockIndexByID(stockArrayList, ingredient.getStockId());
             if (indexStock == -1) {
-                throw new IllegalArgumentException("Your Storage Doesn't have " + ingredient.getStockName() + " As Ingredient for this Recipe");
+//                throw new IllegalArgumentException("Your Storage Doesn't have " + ingredient.getStockName() + " As Ingredient for this Recipe");
             } else {
                 Stock stock = stockArrayList.get(indexStock);
                 ingredientPreviewStr += "\n*" + stock.getName() + " " + getFormattedStockQuantityHorizontal(stock, ingredient.getQuantity() * portion);
@@ -134,6 +136,58 @@ public class FunctionManager {
 
         return ingredientPreviewStr;
     }
+
+//    public String getIngredientStr(Product product) {
+//        String ingredientStr = "";
+//        boolean first = true;
+//
+//        if (product.getIngredients() != null) {
+//            for (Ingredient ingredient : product.getIngredients()) {
+//                if (!first) {
+//                    ingredientStr += "\n";
+//                }
+//                ingredientStr += "*" + ingredient.getStockName() + "(" + ingredient.getQuantity() + ")";
+//                first = false;
+//            }
+//        }
+//
+//        return ingredientStr;
+//    }
+//
+//
+//    public String getIngredientStr(Recipe recipe) {
+//        String ingredientStr = "";
+//        boolean first = true;
+//
+//        if (recipe.getIngredientList() != null) {
+//            for (Ingredient ingredient : recipe.getIngredientList()) {
+//                if (!first) {
+//                    ingredientStr += "\n";
+//                }
+//                ingredientStr += "*" + ingredient.getStockName() + "(" + ingredient.getQuantity() + ")";
+//                first = false;
+//            }
+//        }
+//
+//        return ingredientStr;
+//    }
+//
+//    public String getIngredientStr(VariantItem variantItem) {
+//        String ingredientStr = "";
+//        boolean first = true;
+//
+//        if (variantItem.getIngredients() != null) {
+//            for (Ingredient ingredient : variantItem.getIngredients()) {
+//                if (!first) {
+//                    ingredientStr += "\n";
+//                }
+//                ingredientStr += "*" + ingredient.getStockName() + "(" + ingredient.getQuantity() + ")";
+//                first = false;
+//            }
+//        }
+//
+//        return ingredientStr;
+//    }
 
     public static String getFormattedStockQuantityVertical(Stock stock, int quantity) {
         String str = "";
@@ -211,6 +265,24 @@ public class FunctionManager {
         }
 
         return str;
+    }
+
+    public boolean isHaveHasStock(Stock stock, Storage storage) {
+        for (StockQuantityHolder stockQuantityHolder : storage.getStockQuantityHolders()) {
+            if (stockQuantityHolder.getStockId().equals(stock.getStockId())) return true;
+        }
+        return false;
+    }
+
+    public void removeStockInHolder(@NonNull Stock stock, Storage storage) {
+        int pos = -1;
+        for (StockQuantityHolder stockQuantityHolder : storage.getStockQuantityHolders()) {
+            pos++;
+            if (stockQuantityHolder.getStockId().equals(stock.getStockId())) {
+                storage.getStockQuantityHolders().remove(pos);
+                break;
+            }
+        }
     }
 
     public static int getOutletIndexByID(ArrayList<Outlet> list, String outletID) {
@@ -339,14 +411,14 @@ public class FunctionManager {
         return null;
     }
 
-    public static StorageStockHolder getStorageStockHolderObjectById(ArrayList<StorageStockHolder> storageStockHolders, String storageId) {
-        for (int i = 0; i < storageStockHolders.size(); i++) {
-            if (storageStockHolders.get(i).getStorage().getStorageId().equalsIgnoreCase(storageId)) {
-                return storageStockHolders.get(i);
-            }
-        }
-        return null;
-    }
+//    public static StorageStockHolder getStorageStockHolderObjectById(ArrayList<StorageStockHolder> storageStockHolders, String storageId) {
+//        for (int i = 0; i < storageStockHolders.size(); i++) {
+//            if (storageStockHolders.get(i).getStorage().getStorageId().equalsIgnoreCase(storageId)) {
+//                return storageStockHolders.get(i);
+//            }
+//        }
+//        return null;
+//    }
 
     public static int getStorageById(ArrayList<Storage> storage, String storageId) {
         for (int i = 0; i < storage.size(); i++) {
@@ -366,23 +438,23 @@ public class FunctionManager {
         return null;
     }
 
-    public static boolean hasUnconfirmedTransaction(ArrayList<StockTransaction> stockTransactions) {
-        for (StockTransaction stockTransaction : stockTransactions) {
-            if (stockTransaction.getTransactionType() == StockTransaction.TRANSACTION_TRANSFER_IN && !stockTransaction.isConfirmed()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static int getSettlementIndexByID(ArrayList<Settlement> settlementArrayList, String settlementId) {
-        for (int i = 0; i < settlementArrayList.size(); i++) {
-            if (settlementArrayList.get(i).getSettlementId().equalsIgnoreCase(settlementId)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+//    public static boolean hasUnconfirmedTransaction(ArrayList<StockTransaction> stockTransactions) {
+//        for (StockTransaction stockTransaction : stockTransactions) {
+//            if (stockTransaction.getTransactionType() == StockTransaction.TRANSACTION_TRANSFER_IN && !stockTransaction.isConfirmed()) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+//    public static int getSettlementIndexByID(ArrayList<Settlement> settlementArrayList, String settlementId) {
+//        for (int i = 0; i < settlementArrayList.size(); i++) {
+//            if (settlementArrayList.get(i).getSettlementId().equalsIgnoreCase(settlementId)) {
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
 
     public static int getWalletIndexByID(ArrayList<Wallet> list, String walletId) {
         for (int i = 0; i < list.size(); i++) {
@@ -408,6 +480,26 @@ public class FunctionManager {
                 return pricing;
         }
         return null;
+    }
+
+    public String getPricingStr(VariantItem variantItem) {
+        StringBuilder pricingStr = new StringBuilder();
+        for (Pricing pricing : variantItem.getPricingList()) {
+            pricingStr.append("*");
+//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_DINE_IN) {
+//                pricingStr.append("Dine In Rp ").append(pricing.getPrice());
+//            }
+//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_TAKE_AWAY) {
+//                pricingStr.append("Take Away Rp ").append(pricing.getPrice());
+//            }
+//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_GO_FOOD) {
+//                pricingStr.append("Go-Food Rp ").append(pricing.getPrice());
+//            }
+//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_GRAB_FOOD) {
+//                pricingStr.append("Grab-Food Rp ").append(pricing.getPrice());
+//            }
+        }
+        return pricingStr.toString();
     }
 
     public static OrderType getOrderTypeById(List<OrderType> list, String id) {
@@ -449,6 +541,30 @@ public class FunctionManager {
             subtotal+= (orderItem.getEachItemPrice()*orderItem.getQuantity());
         }
         return subtotal;
+    }
+
+    public double getSubTotal(OrderItem orderItem){
+        return orderItem.getEachItemPrice()*orderItem.getQuantity();
+    }
+
+    public String getSelectedVariantStr(OrderItem orderItem){
+        String selectedVarStr="";
+        boolean isFirst=true;
+        if(orderItem.getVariants().size()>0){
+            for(int i = 0; i< orderItem.getVariants().size(); i++){
+                OrderItemVariant var = orderItem.getVariants().get(i);
+                String selectedVarPrintName = var.getVariantItemName();
+
+                if(!selectedVarPrintName.equalsIgnoreCase("")){
+                    if(!isFirst){
+                        selectedVarStr +=", ";
+                    }
+                    selectedVarStr += selectedVarPrintName;
+                    isFirst =false;
+                }
+            }
+        }
+        return selectedVarStr;
     }
 
     public static double getTotal(Order order,OrderType orderType){

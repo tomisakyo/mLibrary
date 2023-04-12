@@ -31,52 +31,6 @@ public class VariantItem implements Serializable {
         this.pricingList = new ArrayList<>();
     }
 
-    public String getIngredientStr() {
-        String ingredientStr = "";
-        boolean first = true;
-
-        if (ingredients != null) {
-            for (Ingredient ingredient : ingredients) {
-                if (!first) {
-                    ingredientStr += "\n";
-                }
-                ingredientStr += "*" + ingredient.getStockName() + "(" + ingredient.getQuantity() + ")";
-                first = false;
-            }
-        }
-
-        return ingredientStr;
-    }
-
-    public String getPricingStr() {
-        StringBuilder pricingStr = new StringBuilder();
-        for (Pricing pricing : getPricingList()) {
-            pricingStr.append("*");
-//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_DINE_IN) {
-//                pricingStr.append("Dine In Rp ").append(pricing.getPrice());
-//            }
-//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_TAKE_AWAY) {
-//                pricingStr.append("Take Away Rp ").append(pricing.getPrice());
-//            }
-//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_GO_FOOD) {
-//                pricingStr.append("Go-Food Rp ").append(pricing.getPrice());
-//            }
-//            if (pricing.getOrderTypeId() == OrderType.ORDER_TYPE_GRAB_FOOD) {
-//                pricingStr.append("Grab-Food Rp ").append(pricing.getPrice());
-//            }
-        }
-        return pricingStr.toString();
-    }
-
-    public double getPriceByOrderType(int orderTypeId) {
-        for (Pricing pricing : pricingList) {
-//            if (pricing.getOrderTypeId() == orderTypeId) {
-//                return pricing.getPrice();
-//            }
-        }
-        throw new IllegalArgumentException("Pricing List is EMPTY");
-    }
-
     public String getVariantItemId() {
         return variantItemId;
     }

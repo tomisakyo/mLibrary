@@ -2,6 +2,7 @@ package com.example.mylibrary.model;
 
 import androidx.annotation.Nullable;
 
+import com.example.mylibrary.model.inventory.Ingredient;
 import com.google.firebase.firestore.PropertyName;
 
 import java.io.Serializable;

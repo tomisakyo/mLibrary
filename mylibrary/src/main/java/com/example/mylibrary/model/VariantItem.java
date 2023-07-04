@@ -1,5 +1,7 @@
 package com.example.mylibrary.model;
 
+import com.example.mylibrary.model.inventory.Ingredient;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.mylibrary.model;
+package com.example.mylibrary.model.inventory;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

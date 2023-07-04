@@ -1,6 +1,4 @@
-package com.example.mylibrary.model;
-
-import androidx.annotation.NonNull;
+package com.example.mylibrary.model.inventory;
 
 import java.io.Serializable;
 import java.util.ArrayList;

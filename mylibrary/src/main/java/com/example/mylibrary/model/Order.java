@@ -2,6 +2,7 @@ package com.example.mylibrary.model;
 
 import androidx.annotation.Nullable;
 
+import com.example.mylibrary.model.inventory.Ingredient;
 import com.example.mylibrary.utility.FunctionManager;
 
 import java.io.Serializable;

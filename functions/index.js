@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 
 const {initializeApp} = require("firebase-admin/app");
-const {getFirestore, FieldValue} = require("firebase-admin/firestore");
+const {getFirestore} = require("firebase-admin/firestore");
 initializeApp();
 const db = getFirestore();
 
@@ -65,33 +65,49 @@ exports.addStockQuantity = functions.https.onCall(async (value, context) => {
         note: value.stockTrans.data().note,
         transactionStockItems: value.stockTrans.data().transactionStockItems,
       });
-  const res = await db.collection("Storages")
-      .doc(value.storageId)
-      .collection("Data")
-      .doc("StockQuantityHolders")
-      .get();
   for (let i = 0; i < trans.data().transactionStockItems.length; i++) {
-    const stockId = trans.data().transactionStockItems.stockId;
-    const stockQuantity = trans.data().transactionStockItems.quantitySystem;
-
-    const itemIndex = res.data().stock.indexOf(stockId);
-    const lastQuantity = res.data().stcok[itemIndex].quantity;
-    const newQuantity = stockQuantity + lastQuantity;
-    const minStock = res.data().stock[itemIndex].minimumStockLevel;
-    await db.collection("Storages")
+    const data = await db.collection("Storages")
         .doc(value.storageId)
         .collection("Data")
         .doc("StockQuantityHolders")
-        .set({
-          stock: [
-            {
-              stockId: stockId,
-              quantity: newQuantity,
-              minimumStockLevel: minStock,
-            },
-          ],
-        });
+        .get();
+    if (trans.data().transactionStockItems[i].stockId == data.data().stockId) {
+      for (const key of Object.keys(data)) {
+        if (db.collection("Storages")
+            .doc(value.storageId)
+            .collection("Data")
+            .doc(key).exists()) {
+          db.collection("Storages")
+              .doc(value.storageId)
+              .collection("Data")
+              .doc(key)
+              .set(data[key]);
+        }
+      }
+    }
   }
+  // for (let i = 0; i < trans.data().transactionStockItems.length; i++) {
+  //   const stockId = trans.data().transactionStockItems.stockId;
+  //   const stockQuantity = trans.data().transactionStockItems.quantitySystem;
+
+  //   const itemIndex = res.data().stock.indexOf(stockId);
+  //   const lastQuantity = res.data().stock[itemIndex].quantity;
+  //   const newQuantity = stockQuantity + lastQuantity;
+  //   const minStock = res.data().stock[itemIndex].minimumStockLevel;
+  //   await db.collection("Storages")
+  //       .doc(value.storageId)
+  //       .collection("Data")
+  //       .doc("StockQuantityHolders")
+  //       .set({
+  //         stock: [
+  //           {
+  //             stockId: stockId,
+  //             quantity: newQuantity,
+  //             minimumStockLevel: minStock,
+  //           },
+  //         ],
+  //       });
+  // }
   return "Added document with ID : " + trans.id;
 });
 

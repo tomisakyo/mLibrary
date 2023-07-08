@@ -56,32 +56,40 @@ exports.addStockQuantity = functions.https.onCall(async (value, context) => {
   const trans = await db.collection("Storages")
       .doc(value.storageId)
       .collection("Transactions")
-      .doc(value.stockTrans.data().transactionId)
+      .doc(value.transactionId)
       .set({
-        transactionId: value.stockTrans.data().transactionId,
-        date: value.stockTrans.data().date,
-        transactionType: value.stockTrans.data().transactionType,
-        referenceId: value.stockTrans.data().referenceId,
-        note: value.stockTrans.data().note,
-        transactionStockItems: value.stockTrans.data().transactionStockItems,
+        transactionId: value.transactionId,
+        date: value.date,
+        transactionType: value.transactionType,
+        referenceId: value.referenceId,
+        note: value.note,
+        transactionStockItems: value.stockItems,
       });
-  for (let i = 0; i < trans.data().transactionStockItems.length; i++) {
-    const data = await db.collection("Storages")
-        .doc(value.storageId)
-        .collection("Data")
-        .doc("StockQuantityHolders")
-        .get();
-    if (trans.data().transactionStockItems[i].stockId == data.data().stockId) {
-      for (const key of Object.keys(data)) {
-        if (db.collection("Storages")
-            .doc(value.storageId)
-            .collection("Data")
-            .doc(key).exists()) {
-          db.collection("Storages")
+  const o = await db.collection("Storages")
+      .doc(value.storageId)
+      .collection("Data")
+      .doc("StockQuantityHolders")
+      .get();
+  for (let i = 0; i < value.stockItems.length; i++) {
+    for (let j = 0; j < o.data().stock.length; j++) {
+      if (value.stockItems[i].stockId == o.data().stock[j].stockId) {
+        for (const key of Object.keys(o)) {
+          if (db.collection("Storages")
               .doc(value.storageId)
               .collection("Data")
-              .doc(key)
-              .set(data[key]);
+              .doc(key).exists()) {
+            db.collection("Storages")
+                .doc(value.storageId)
+                .collection("Data")
+                .doc(key)
+                .set(o[key]);
+          } else {
+            db.collection("Storages")
+                .doc(value.storageId)
+                .collection("Data")
+                .doc(key)
+                .add(o[key]);
+          }
         }
       }
     }

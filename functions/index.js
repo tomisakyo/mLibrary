@@ -70,52 +70,52 @@ exports.addStockQuantity = functions.https.onCall(async (value, context) => {
       .collection("Data")
       .doc("StockQuantityHolders")
       .get();
-  for (let i = 0; i < value.stockItems.length; i++) {
-    for (let j = 0; j < o.data().stock.length; j++) {
-      if (value.stockItems[i].stockId == o.data().stock[j].stockId) {
-        for (const key of Object.keys(o)) {
-          if (db.collection("Storages")
-              .doc(value.storageId)
-              .collection("Data")
-              .doc(key).exists()) {
-            db.collection("Storages")
-                .doc(value.storageId)
-                .collection("Data")
-                .doc(key)
-                .set(o[key]);
-          } else {
-            db.collection("Storages")
-                .doc(value.storageId)
-                .collection("Data")
-                .doc(key)
-                .add(o[key]);
-          }
-        }
-      }
-    }
-  }
-  // for (let i = 0; i < trans.data().transactionStockItems.length; i++) {
-  //   const stockId = trans.data().transactionStockItems.stockId;
-  //   const stockQuantity = trans.data().transactionStockItems.quantitySystem;
-
-  //   const itemIndex = res.data().stock.indexOf(stockId);
-  //   const lastQuantity = res.data().stock[itemIndex].quantity;
-  //   const newQuantity = stockQuantity + lastQuantity;
-  //   const minStock = res.data().stock[itemIndex].minimumStockLevel;
-  //   await db.collection("Storages")
-  //       .doc(value.storageId)
-  //       .collection("Data")
-  //       .doc("StockQuantityHolders")
-  //       .set({
-  //         stock: [
-  //           {
-  //             stockId: stockId,
-  //             quantity: newQuantity,
-  //             minimumStockLevel: minStock,
-  //           },
-  //         ],
-  //       });
+  // for (let i = 0; i < value.stockItems.length; i++) {
+  //   for (let j = 0; j < o.data().stock.length; j++) {
+  //     if (value.stockItems[i].stockId == o.data().stock[j].stockId) {
+  //       for (const key of Object.keys(o)) {
+  //         if (db.collection("Storages")
+  //             .doc(value.storageId)
+  //             .collection("Data")
+  //             .doc(key).exists()) {
+  //           db.collection("Storages")
+  //               .doc(value.storageId)
+  //               .collection("Data")
+  //               .doc(key)
+  //               .set(o[key]);
+  //         } else {
+  //           db.collection("Storages")
+  //               .doc(value.storageId)
+  //               .collection("Data")
+  //               .doc(key)
+  //               .add(o[key]);
+  //         }
+  //       }
+  //     }
+  //   }
   // }
+  for (let i = 0; i < trans.data().transactionStockItems.length; i++) {
+    const stockId = trans.data().transactionStockItems.stockId;
+    const stockQuantity = trans.data().transactionStockItems.quantitySystem;
+
+    const itemIndex = o.data().stock.indexOf(stockId);
+    const lastQuantity = o.data().stock[itemIndex].quantity;
+    const newQuantity = stockQuantity + lastQuantity;
+    const minStock = o.data().stock[itemIndex].minimumStockLevel;
+    await db.collection("Storages")
+        .doc(value.storageId)
+        .collection("Data")
+        .doc("StockQuantityHolders")
+        .set({
+          stock: [
+            {
+              stockId: stockId,
+              quantity: newQuantity,
+              minimumStockLevel: minStock,
+            },
+          ],
+        });
+  }
   return "Added document with ID : " + trans.id;
 });
 

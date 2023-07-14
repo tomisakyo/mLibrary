@@ -23,6 +23,7 @@ public class StockTransaction implements Serializable {
     public static int STATUS_ONGOING = 100;
     public static int STATUS_COMPLETED = 200;
 
+    //Transaction Type
     public static int TRANSACTION_PURCHASE = 110;
     public static int TRANSACTION_SALES = 120;
     public static int TRANSACTION_TRANSFER_OUT = 130;

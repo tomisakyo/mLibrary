@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class Stock implements Serializable {
     private String stockId;
-    private int minimumStockLevel;
+//    private int minimumStockLevel;
     private String name;
     private String categoryId;
     private int priority;
@@ -24,7 +24,7 @@ public class Stock implements Serializable {
                  String categoryId, int priority, String unit1, int unit1ValueOverUnit2, String unit2,
                  int unit2ValueOverUnit3, String unit3, boolean isEnabled, String tags) {
         this.stockId = stockId;
-        this.minimumStockLevel = minimumStockLevel;
+//        this.minimumStockLevel = minimumStockLevel;
         this.name = name;
         this.categoryId = categoryId;
         this.priority = priority;
@@ -39,7 +39,7 @@ public class Stock implements Serializable {
 
     public Stock(String name) {
         this.stockId = UUID.randomUUID().toString();
-        this.minimumStockLevel = -1;
+//        this.minimumStockLevel = -1;
         this.name = name;
         this.categoryId = "";
         this.priority = 0;
@@ -54,7 +54,7 @@ public class Stock implements Serializable {
 
     public Stock() {
         this.stockId = UUID.randomUUID().toString();
-        this.minimumStockLevel = -1;
+//        this.minimumStockLevel = -1;
         this.name = "";
         this.categoryId = "";
         this.priority = 0;
@@ -91,13 +91,13 @@ public class Stock implements Serializable {
         this.stockId = stockId;
     }
 
-    public int getMinimumStockLevel() {
-        return minimumStockLevel;
-    }
-
-    public void setMinimumStockLevel(int minimumStockLevel) {
-        this.minimumStockLevel = minimumStockLevel;
-    }
+//    public int getMinimumStockLevel() {
+//        return minimumStockLevel;
+//    }
+//
+//    public void setMinimumStockLevel(int minimumStockLevel) {
+//        this.minimumStockLevel = minimumStockLevel;
+//    }
 
     public String getName() {
         return name;
